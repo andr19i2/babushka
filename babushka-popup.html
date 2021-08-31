@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="babushka.css" />
+    <title>Babushka</title>
+  </head>
+
+  <body>
+    <header>BISTRO BABUSKHA
+    <main>
+      <h3>Alle</h3>
+      <nav>
+        <button data-drikkevarer="alle" class="valgt">Alle retter</button>
+        <button data-drikkevarer="hovedretter">Hovedretter</button>
+        <button data-drikkevarer="forretter">Forretter</button>
+        <button data-drikkevarer="desserter">Desserter</button>
+        <button data-drikkevarer="drikkevarer">Drikkevarer</button>
+      </nav>
+    </header>
+      <section></section>
+      <template>
+        <article>
+          <h2></h2>
+          <img src="" alt="" />
+          <p class="kortbeskrivelse">Kort beskrivelse:</p>
+          <p class="oprindelsesregion">Oprindelsesregion:</p>
+          <p class="pris">Pris:</p>
+        </article>
+      </template>
+
+      <section id="popup">
+        <article>
+          <button>X</button>
+          <h2></h2>
+          <img src="" alt="" />
+          <p class="kortbeskrivelse">Kort beskrivelse:</p>
+          <p class="oprindelsesregion">Oprindelsesregion:</p>
+          <p class="pris">Pris:</p>
+        </article>
+      </section>
+    </main>
+    <script>
+      const header = document.querySelector("h3");
+      let filter = "alle";
+      let retter;
+      let container;
+      let temp;
+
+      const url = "https://babushka-dd8a.restdb.io/rest/menu";
+      const options = {
+        headers: {
+          "x-apikey": "600ec2fb1346a1524ff12de4",
+        },
+      };
+
+      document.addEventListener("DOMContentLoaded", start);
+
+      function start() {
+        const filterKnapper = document.querySelectorAll("nav button");
+        filterKnapper.forEach((knap) =>
+          knap.addEventListener("click", filtrerRetter)
+        );
+        container = document.querySelector("section");
+        temp = document.querySelector("template");
+        hentData();
+      }
+
+      function filtrerRetter() {
+        filter = this.dataset.drikkevarer;
+        document.querySelector(".valgt").classList.remove("valgt");
+        this.classList.add("valgt");
+
+        visRetter();
+        header.textContent = this.textContent;
+      }
+      async function hentData() {
+        const response = await fetch(url, options);
+        retter = await response.json();
+        console.log(retter);
+        visRetter();
+      }
+
+      function visRetter() {
+        container.textContent = "";
+        retter.forEach((ret) => {
+          if (filter == ret.kategori || filter == "alle") {
+            let klon = temp.cloneNode(true).content;
+            klon.querySelector("img").src =
+              "images/" + ret.billednavn + "-md.jpg";
+            klon.querySelector("h2").textContent = ret.navn;
+            klon.querySelector(".kortbeskrivelse").textContent +=
+              "" + ret.kortbeskrivelse;
+            klon.querySelector(".oprindelsesregion").textContent +=
+              "" + ret.oprindelsesregion;
+            klon.querySelector(".pris").textContent += "" + ret.pris;
+            klon
+              .querySelector("article")
+              .addEventListener("click", () => visDetaljer(ret));
+            container.appendChild(klon);
+          }
+        });
+      }
+      document
+        .querySelector("#popup button")
+        .addEventListener("click", lukPopup);
+
+      function lukPopup() {
+        document.querySelector("#popup").style.display = "none";
+      }
+
+      function visDetaljer(detaljer) {
+        const popup = document.querySelector("#popup");
+        popup.style.display = "block";
+        popup.querySelector(".pris").textContent = "Pris: " + detaljer.pris;
+        popup.querySelector(".kortbeskrivelse").textContent =
+          "Kort beskrivelse: " + detaljer.kortbeskrivelse;
+        popup.querySelector(".oprindelsesregion").textContent =
+          "Oprindelsesregion: " + detaljer.oprindelsesregion;
+        popup.querySelector("img").src =
+          "images/" + detaljer.billednavn + "-md.jpg";
+
+        console.log(detaljer);
+      }
+    </script>
+  </body>
+</html>

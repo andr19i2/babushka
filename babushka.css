@@ -1,6 +1,14 @@
 img {
   width: 100%;
 }
+
+header {
+  background-color: orange;
+  padding: 4rem;
+  font-family: "Lato", sans-serif;
+  text-align: center;
+  position: sticky;
+}
 section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -9,4 +17,38 @@ article {
   border: 1px solid black;
   padding: 1rem;
   margin: 1rem;
+}
+
+#popup {
+  width: 100vw;
+  height: 100vh;
+  background-color: #00000099;
+  position: fixed;
+  top: 0;
+  padding-block: 2rem;
+  display: none;
+}
+
+#popup img {
+  width: 40%;
+}
+
+#popup article {
+  background-color: white;
+  width: 50%;
+  margin: 10em auto;
+  text-align: center;
+}
+
+#popup button {
+  position: fixed;
+  top: 11em;
+  left: 19em;
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  font-weight: bolder;
+  font-size: 20px;
 }

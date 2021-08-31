@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="babushka.css" />
     <title>Document</title>
   </head>
   <body id="single">
@@ -20,7 +21,35 @@
     <script>
       const urlPrams = new URLSearchParams(window.location.search);
       const id = urlPrams.get("id");
-      console.log(id);
+      let retter;
+
+      const url = "https://babushka-dd8a.restdb.io/rest/menu";
+      const options = {
+        headers: {
+          "x-apikey": "600ec2fb1346a1524ff12de4",
+        },
+      };
+      document.addEventListener("DOMContentLoaded", hentData);
+      async function hentData() {
+        const response = await fetch(url + id, options);
+        retter = await response.json();
+        console.log(retter);
+        visRetter();
+      }
+      function visRetter() {
+        document.querySelector("h2").textContent = retter.navn;
+        document.querySelector(".kortbeskrivelse").textContent +=
+          "" + retter.kortbeskrivelse;
+        document.querySelector("img").src =
+          "images/" + retter.billednavn + "-md.jpg";
+        document.querySelector(".oprindelsesregion").textContent +=
+          "" + retter.oprindelsesregion;
+        document.querySelector(".pris").textContent = textContent +=
+          "" + retter.pris;
+      }
+      document.querySelector("button").addEventListener("click", () => {
+        window.history.back();
+      });
     </script>
   </body>
 </html>
