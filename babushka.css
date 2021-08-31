@@ -15,10 +15,28 @@ section {
 }
 article {
   border: 1px solid black;
+  border-radius: 5px;
   padding: 1rem;
   margin: 1rem;
 }
 
+nav {
+  text-align: center;
+  padding: 2rem;
+}
+nav button {
+  background-color: orange;
+  border-radius: 5px;
+  border: none;
+  padding: 10px;
+}
+.valgt {
+  background-color: grey;
+}
+
+article p {
+  font-family: "Lato", sans-serif;
+}
 #popup {
   width: 100vw;
   height: 100vh;
