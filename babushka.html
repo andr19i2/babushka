@@ -81,6 +81,9 @@
             klon.querySelector(".oprindelsesregion").textContent +=
               "" + ret.oprindelsesregion;
             klon.querySelector(".pris").textContent += "" + ret.pris;
+            klon.querySelector("article").addEventListener("click", () => {
+              location.href = "single-start.html?id=" + ret._id;
+            });
             container.appendChild(klon);
           }
         });

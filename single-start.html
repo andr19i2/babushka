@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body id="single">
+    <main>
+      <button>Tilbage</button>
+      <article>
+        <h2></h2>
+        <img src="" alt="" />
+        <p class="kortbeskrivelse">Kort beskrivelse:</p>
+        <p class="oprindelsesregion">Oprindelsesregion:</p>
+        <p class="pris">Pris:</p>
+      </article>
+    </main>
+    <script>
+      const urlPrams = new URLSearchParams(window.location.search);
+      const id = urlPrams.get("id");
+      console.log(id);
+    </script>
+  </body>
+</html>
